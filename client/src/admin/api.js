@@ -54,3 +54,31 @@ export const logout = async (token) => {
         };
     }
 };
+
+export const updateUser = async (data) => {
+    console.log('Incoming data:', data); // Log the incoming data
+
+    const sanitizedData = {
+        email: data.email,
+        health_facility: data.health_facility,
+        name: data.name,
+        nid: data.nid,
+        password: data.password,
+        phone_number: data.phone_number,
+        role: data.role,
+        status: data.status,
+    };
+
+    console.log('Sanitized data to be sent:', sanitizedData); // Log the sanitized data
+    try {
+        const response = await api.put('/auth/update-account/', sanitizedData, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.log('Error response from server:', error.response); // Log error response
+        throw error.response ? error.response.data : new Error('Failed to update account.');
+    }
+};
