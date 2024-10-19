@@ -101,7 +101,7 @@ const Navbar = ({ toggleSidebar }) => {
                         >
                             <div className="w-56 p-2 bg-white rounded-md shadow-lg dropdown-content">
                                 <Link
-                                    to='/profile'
+                                    to='/admin/profile'
                                     className="flex items-center p-2 transition duration-300 ease-in-out rounded-md hover:bg-gray-100"
                                 >
                                     <UserRoundPen className="stroke-[1] mr-2 h-4 w-4" />
