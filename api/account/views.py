@@ -1,8 +1,10 @@
 from account.serializers import *
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics, permissions, status
 
 class LoginView(GenericAPIView):  # Change to GenericAPIView
@@ -29,3 +31,18 @@ class LoginView(GenericAPIView):  # Change to GenericAPIView
                 'message': 'Login successful.'
             }, status=status.HTTP_200_OK)
         return Response({'error': 'Invalid email or password.'}, status=status.HTTP_400_BAD_REQUEST)
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            if hasattr(request.user, 'auth_token'):
+                request.user.auth_token.delete()
+            return Response({
+                "message": "Logout successful."
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({
+                "error": f"An error occurred during logout: {str(e)}"
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
