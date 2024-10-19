@@ -12,7 +12,7 @@ const AdminLayout = () => {
         const token = localStorage.getItem('token');
         if (!token) {
             toast.error('You must be logged in to access this page.');
-            navigate('/'); // Redirect to the login page
+            navigate('/admin'); // Redirect to the login page
         }
     }, [navigate]);
 
