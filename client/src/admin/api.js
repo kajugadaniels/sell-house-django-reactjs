@@ -60,9 +60,7 @@ export const updateUser = async (data) => {
 
     const sanitizedData = {
         email: data.email,
-        health_facility: data.health_facility,
         name: data.name,
-        nid: data.nid,
         password: data.password,
         phone_number: data.phone_number,
         role: data.role,
