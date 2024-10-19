@@ -77,7 +77,7 @@ const Navbar = ({ toggleSidebar }) => {
                 <nav aria-label="breadcrumb" className="flex flex-1">
                     <ol className="flex items-center text-theme-1 text-white/90">
                         <li>
-                            <Link to="/">Dashboard</Link>
+                            <Link to="/admin/dashboard">Dashboard</Link>
                         </li>
                     </ol>
                 </nav>
