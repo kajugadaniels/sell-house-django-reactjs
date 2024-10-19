@@ -15,8 +15,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(unique=True, null=True, blank=True)
     phone_number = models.CharField(unique=True, max_length=20, null=True, blank=True)
-    password = models.CharField(max_length=255, null=True, blank=True)
     role = models.CharField(choices=STATUS_CHOICE, max_length=50, null=True, blank=True)
+    password = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     is_active = models.BooleanField(default=True)
