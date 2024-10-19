@@ -10,14 +10,10 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path='/admin' element={
-                    <AdminLayout>
-                        <AdminRoutes />
-                    </AdminLayout>
+                    <AdminRoutes />
                 } />
                 <Route path='/*' element={
-                    <UserLayout>
-                        <UserRoutes />
-                    </UserLayout>
+                    <UserRoutes />
                 } />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
