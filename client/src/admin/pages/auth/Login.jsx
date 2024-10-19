@@ -46,12 +46,12 @@ const Login = () => {
                 <div className="relative z-50 h-full col-span-12 p-7 sm:p-14 bg-white rounded-2xl lg:bg-transparent lg:pr-10 lg:col-span-5 xl:pr-24 2xl:col-span-4 lg:p-0 before:content-[''] before:absolute before:inset-0 before:-mb-3.5 before:bg-white/40 before:rounded-2xl before:mx-5">
                     <div className="relative z-10 flex flex-col justify-center w-full h-full py-2 lg:py-32">
                         <div className="flex items-center justify-center" style={{ width: '200px', height: '200px' }}>
-                            <img src='/src/assets/logo-b.png' alt="Logo" />
+                            <h1 className='text-2xl font-medium'>WeLink Home</h1>
                         </div>
                         <div>
                             <div className="text-2xl font-medium">Sign In</div>
                             <div className="mt-2.5 text-slate-600">
-                                Welcome to Medisoft.
+                                Welcome to WeLink Home.
                             </div>
                             <form onSubmit={handleLogin} className="mt-6">
                                 <label className="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Email
@@ -93,7 +93,7 @@ const Login = () => {
                 <div className="h-full col-span-7 2xl:col-span-8 lg:relative before:content-[''] before:absolute before:lg:-ml-10 before:left-0 before:inset-y-0 before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:w-screen before:lg:w-[800%]">
                     <div className="sticky top-0 z-10 flex-col justify-center hidden h-screen ml-16 lg:flex xl:ml-28 2xl:ml-36">
                         <div className="text-[2.6rem] font-medium leading-[1.4] text-white xl:text-5xl xl:leading-[1.2]">
-                            Medical Information <br /> Software
+                        Welcome to WeLink Home <br /> Secure Login
                         </div>
                         <div className="mt-5 text-base leading-relaxed text-white/70 xl:text-lg">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
