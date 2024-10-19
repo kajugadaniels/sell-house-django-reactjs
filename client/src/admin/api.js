@@ -69,7 +69,7 @@ export const updateUser = async (data) => {
 
     console.log('Sanitized data to be sent:', sanitizedData); // Log the sanitized data
     try {
-        const response = await api.put('/auth/update-account/', sanitizedData, {
+        const response = await api.put('/auth/update/', sanitizedData, {
             headers: {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },

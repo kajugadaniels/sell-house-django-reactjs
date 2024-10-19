@@ -66,7 +66,7 @@ const Profile = () => {
             localStorage.setItem('user', JSON.stringify(response.user));
 
             // Redirect back to the profile page with updated data
-            navigate('/profile');
+            navigate('/admin/profile');
         } catch (error) {
             setLoading(false);
             const errorMessage = extractErrorMessage(error);
@@ -105,7 +105,7 @@ const Profile = () => {
                         </div>
                         <div className="mt-7">
                             <div className="flex flex-col box box--stacked">
-                                <form onSubmit={handleSubmit} className="p-7">                                    
+                                <form onSubmit={handleSubmit} className="p-7">
                                     {/* Name */}
                                     <div className="flex-col block pt-5 mt-5 sm:flex xl:flex-row xl:items-center">
                                         <div className="inline-block mb-2 sm:mb-0 sm:mr-5 xl:mr-14 xl:w-60">
@@ -132,55 +132,40 @@ const Profile = () => {
                                         </div>
                                     </div>
 
-                                    {/* Email */}
+                                    {/* Email & Phone Number */}
                                     <div className="flex-col block pt-5 mt-5 sm:flex xl:flex-row xl:items-center">
                                         <div className="inline-block mb-2 sm:mb-0 sm:mr-5 xl:mr-14 xl:w-60">
                                             <div className="text-left">
                                                 <div className="flex items-center">
-                                                    <div className="font-medium">Email</div>
-                                                    <div className="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">Required</div>
+                                                    <div className="font-medium">Password</div>
+                                                    <div className="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">Optional</div>
                                                 </div>
                                                 <div className="mt-1.5 text-xs leading-relaxed text-slate-500/80 xl:mt-3">
-                                                    Provide your email address for communication and account recovery.
+                                                    Provide your email address for communication, notifications, account recovery and account verification.
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex-1 w-full mt-3 xl:mt-0">
-                                            <input
-                                                type="email"
-                                                name="email"
-                                                value={user.email}
-                                                onChange={handleInputChange}
-                                                placeholder="Enter email address"
-                                                className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* Phone Number */}
-                                    <div className="flex-col block pt-5 mt-5 sm:flex xl:flex-row xl:items-center">
-                                        <div className="inline-block mb-2 sm:mb-0 sm:mr-5 xl:mr-14 xl:w-60">
-                                            <div className="text-left">
-                                                <div className="flex items-center">
-                                                    <div className="font-medium">Phone Number</div>
-                                                    <div className="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">Required</div>
-                                                </div>
-                                                <div className="mt-1.5 text-xs leading-relaxed text-slate-500/80 xl:mt-3">
-                                                    Enter your contact number for notifications and account verification.
-                                                </div>
+                                            <div className="flex flex-col items-center md:flex-row">
+                                                <input
+                                                    type="email"
+                                                    name="email"
+                                                    value={user.email}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Enter email address"
+                                                    className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
+                                                    required
+                                                />
+                                                <input
+                                                    type="text"
+                                                    name="phone_number"
+                                                    value={user.phone_number}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Enter phone number"
+                                                    className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
+                                                    required
+                                                />
                                             </div>
-                                        </div>
-                                        <div className="flex-1 w-full mt-3 xl:mt-0">
-                                            <input
-                                                type="text"
-                                                name="phone_number"
-                                                value={user.phone_number}
-                                                onChange={handleInputChange}
-                                                placeholder="Enter phone number"
-                                                className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
-                                                required
-                                            />
                                         </div>
                                     </div>
 
