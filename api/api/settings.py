@@ -33,6 +33,9 @@ INSTALLED_APPS = [
     'corsheaders',
     "whitenoise.runserver_nostatic",
     'drf_yasg',
+
+    # Custom apps
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -145,7 +148,7 @@ WHITENOISE_AUTOREFRESH = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'account.User'
 
 CORS_ALLOW_ALL_ORIGINS = True
 APPEND_SLASH = False
