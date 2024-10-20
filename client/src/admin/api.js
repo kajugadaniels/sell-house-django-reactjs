@@ -80,3 +80,16 @@ export const updateUser = async (data) => {
         throw error.response ? error.response.data : new Error('Failed to update account.');
     }
 };
+
+export const addContactMessage = async (data) => {
+    try {
+        const response = await api.post('/contacts/', data, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('An error occurred while adding the contact message.');
+    }
+};
