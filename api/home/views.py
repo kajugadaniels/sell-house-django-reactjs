@@ -1,34 +1,39 @@
 from home.models import *
 from home.serializers import *
 from account.serializers import *
-from rest_framework.views import APIView
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework import generics, status,permissions
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class contactListCreateView(generics.ListCreateAPIView):
     """
     View to list all Contact messages or create a new Contact message.
-    Only accessible by users with appropriate permissions or superusers.
+    GET: Only accessible by users with 'Admin' role or superusers.
+    POST: Any user can create a contact message without authentication.
     """
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [AllowAny]  # Allows any user to access the view
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [IsAuthenticated()]
+        return [AllowAny()]
 
     def get(self, request, *args, **kwargs):
-        # Superusers have unrestricted access
-        if request.user.is_superuser:
+        # Check if the user is a superuser or has the 'Admin' role
+        if request.user.is_superuser or request.user.role == 'Admin':
             return super().list(request, *args, **kwargs)
-        
-        return super().list(request, *args, **kwargs)
+        else:
+            return Response({
+                'message': 'You do not have permission to view contact messages.'
+            }, status=status.HTTP_403_FORBIDDEN)
 
     def post(self, request, *args, **kwargs):
-        # Superusers can create Contact messages without restriction
-        if request.user.is_superuser:
-            return self.create_health_facility_type(request)
+        # Allows any user to create a contact message without authentication
+        return self.create_contact(request)
 
-        return self.create_health_facility_type(request)
-
-    def create_health_facility_type(self, request):        
+    def create_contact(self, request):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             self.perform_create(serializer)
