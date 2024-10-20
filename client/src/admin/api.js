@@ -106,3 +106,16 @@ export const getContactMessages = async () => {
         throw error.response ? error.response.data : new Error('An error occurred while fetching contacts.');
     }
 };
+
+export const getProjects = async () => {
+    try {
+        const response = await api.get('/projects/', {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('An error occurred while fetching projects.');
+    }
+};
