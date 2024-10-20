@@ -29,7 +29,7 @@ const Login = () => {
                 toast.success('Login successful!');
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
-                navigate('/admin/dashboard');
+                navigate('/dashboard');
             } else {
                 toast.error(message);
             }

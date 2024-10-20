@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { About, Contact, Home, ProjectDetails, Projects, Services } from './pages'
 import UserLayout from '../layouts/UserLayout'
-import './assets/css/app.css'
+import './assets/css/style.css'
 
 const UserRoutes = () => {
     return (
