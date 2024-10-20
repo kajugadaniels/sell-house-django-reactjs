@@ -1,4 +1,5 @@
 import React from 'react'
+import { CircleX, Menu } from 'lucide-react';
 
 const Navbar = () => {
     return (
@@ -12,7 +13,7 @@ const Navbar = () => {
                                     <a href="/" className="logo">WeLink Home.</a>
                                 </div>
                             </div>
-                            <div className="col-xl-6 col-lg-7 d-none d-lg-block text-lg-end">
+                            <div className="col-xl-7 col-lg-8 d-none d-lg-block text-lg-end">
                                 <div className="main-menu">
                                     <ul>
                                         <li>
@@ -43,26 +44,14 @@ const Navbar = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-xl-1 col-lg-1 d-none d-lg-inline-block">
-                                <div className="header-right">
-                                    <div className="header-btn">
-                                        <div className="menu-trigger">
-                                            <span className="lines"></span>
-                                            <span className="lines"></span>
-                                            <span className="lines"></span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
                             <div className="mobile-nav-bar col-6 d-block d-lg-none">
                                 <div className="mobile-nav-wrap">
                                     <div id="hamburger">
-                                        <i className="las la-bars"></i>
+                                        <Menu className="las la-bars" />
                                     </div>
                                     <div className="mobile-nav">
                                         <button type="button" className="close-nav">
-                                            <i className="las la-times-circle"></i>
+                                            <CircleX className="las la-times-circle" />
                                         </button>
                                         <nav className="sidebar-nav">
                                             <ul className="metismenu" id="mobile-menu">
