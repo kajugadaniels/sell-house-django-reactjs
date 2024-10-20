@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Login, Dashboard, Profile } from './pages';
+import { Login, Dashboard, Profile, Contacts } from './pages';
 import AdminLayout from '../layouts/AdminLayout';
 
 const AdminRoutes = () => {
@@ -22,6 +22,7 @@ const AdminRoutes = () => {
             <Route element={<AdminLayout />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/contacts" element={<Contacts />} />
             </Route>
         </Routes>
     );
