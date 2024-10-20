@@ -11,7 +11,7 @@ class projectListCreateView(generics.ListCreateAPIView):
     GET: Accessible by all users.
     POST: Only accessible by users with 'Admin' role or superusers.
     """
-    queryset = Project.objects.all()
+    queryset = Project.objects.all().order_by('-id')
     serializer_class = ProjectSerializer
     permission_classes = [AllowAny]  # Default permission
 
@@ -53,7 +53,7 @@ class contactListCreateView(generics.ListCreateAPIView):
     GET: Only accessible by users with 'Admin' role or superusers.
     POST: Any user can create a contact message without authentication.
     """
-    queryset = Contact.objects.all()
+    queryset = Contact.objects.all().order_by('-id')
     serializer_class = ContactSerializer
     permission_classes = [AllowAny]  # Allows any user to access the view
 
