@@ -7,32 +7,43 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class projectListCreateView(generics.ListCreateAPIView):
     """
-    View to list all Projectss or create a new Projects.
-    Any user can create a Projects.
+    View to list all Projects or create a new Project.
+    GET: Accessible by all users.
+    POST: Only accessible by users with 'Admin' role or superusers.
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [AllowAny]  # Allows access to any user, authenticated or not
+    permission_classes = [AllowAny]  # Default permission
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [IsAuthenticated()]
+        return [AllowAny()]
 
     def get(self, request, *args, **kwargs):
-        # Allows anyone to list all Contact messages
+        # Allows anyone to list all Projects
         return super().list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        # Allows anyone to create a Projects
-        return self.create_project(request)
+        # Check if the user is a superuser or has the 'Admin' role
+        if request.user.is_superuser or request.user.role == 'Admin':
+            return self.create_project(request)
+        else:
+            return Response({
+                'message': 'You do not have permission to create a project.'
+            }, status=status.HTTP_403_FORBIDDEN)
 
     def create_project(self, request):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             self.perform_create(serializer)
             return Response({
-                'message': 'Projects created successfully.',
+                'message': 'Project created successfully.',
                 'data': serializer.data
             }, status=status.HTTP_201_CREATED)
         
         return Response({
-            'message': 'Projects creation failed.',
+            'message': 'Project creation failed.',
             'errors': serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
 
