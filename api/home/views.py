@@ -7,7 +7,7 @@ from rest_framework import generics, status,permissions
 
 class contactListCreateView(generics.ListCreateAPIView):
     """
-    View to list all health facility types or create a new health facility type.
+    View to list all Contact messages or create a new Contact message.
     Only accessible by users with appropriate permissions or superusers.
     """
     queryset = Contact.objects.all()
@@ -22,7 +22,7 @@ class contactListCreateView(generics.ListCreateAPIView):
         return super().list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        # Superusers can create health facility types without restriction
+        # Superusers can create Contact messages without restriction
         if request.user.is_superuser:
             return self.create_health_facility_type(request)
 
@@ -33,11 +33,11 @@ class contactListCreateView(generics.ListCreateAPIView):
         if serializer.is_valid():
             self.perform_create(serializer)
             return Response({
-                'message': 'Health facility type created successfully.',
+                'message': 'Contact message created successfully.',
                 'data': serializer.data
             }, status=status.HTTP_201_CREATED)
         
         return Response({
-            'message': 'Health facility type creation failed.',
+            'message': 'Contact message creation failed.',
             'errors': serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
