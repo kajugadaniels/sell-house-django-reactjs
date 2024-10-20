@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { About, Contact, Home, ProjectDetails, Projects, Services } from './pages'
-import UserLayout from '../layouts/UserLayout'
-import './assets/css/style.css'
+import { About, Contact, Home, ProjectDetails, Projects, Services } from './pages';
+import UserLayout from '../layouts/UserLayout';
 
 const UserRoutes = () => {
+    useEffect(() => {
+        // Dynamically import User CSS when the user routes are loaded
+        import('./assets/css/style.css');
+        // Cleanup function to remove the user CSS when unmounted
+        return () => {
+            const userStyles = document.querySelector('link[href*="style.css"]');
+            if (userStyles) {
+                userStyles.remove();
+            }
+        };
+    }, []);
+
     return (
         <Routes>
             <Route element={<UserLayout />}>
@@ -16,7 +27,7 @@ const UserRoutes = () => {
                 <Route path="/contact" element={<Contact />} />
             </Route>
         </Routes>
-    )
-}
+    );
+};
 
-export default UserRoutes
+export default UserRoutes;

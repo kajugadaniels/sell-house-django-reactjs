@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Login, Dashboard, Profile } from './pages'
-import AdminLayout from '../layouts/AdminLayout'
-import './assets/css/app.css'
+import { Login, Dashboard, Profile } from './pages';
+import AdminLayout from '../layouts/AdminLayout';
 
 const AdminRoutes = () => {
+    useEffect(() => {
+        // Dynamically import Admin CSS when the admin routes are loaded
+        import('./assets/css/app.css');
+        // Cleanup function to remove the admin CSS when unmounted
+        return () => {
+            const adminStyles = document.querySelector('link[href*="app.css"]');
+            if (adminStyles) {
+                adminStyles.remove();
+            }
+        };
+    }, []);
+
     return (
         <Routes>
             <Route path="/" element={<Login />} />
@@ -13,7 +24,7 @@ const AdminRoutes = () => {
                 <Route path="/profile" element={<Profile />} />
             </Route>
         </Routes>
-    )
-}
+    );
+};
 
-export default AdminRoutes
+export default AdminRoutes;
