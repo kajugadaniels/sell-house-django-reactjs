@@ -93,3 +93,16 @@ export const addContactMessage = async (data) => {
         throw error.response ? error.response.data : new Error('An error occurred while adding the contact message.');
     }
 };
+
+export const getContactMessages = async () => {
+    try {
+        const response = await api.get('/contacts/', {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('An error occurred while fetching contacts.');
+    }
+};
