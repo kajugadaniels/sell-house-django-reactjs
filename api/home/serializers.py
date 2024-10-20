@@ -11,4 +11,4 @@ class ContactSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['id', 'title', 'total_area', 'living_space', 'price', 'location', 'year', 'category', 'description']
+        fields = ['id', 'title', 'slug', 'total_area', 'living_space', 'price', 'location', 'year', 'category', 'description']

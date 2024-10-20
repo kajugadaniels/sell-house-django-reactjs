@@ -5,6 +5,37 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
+class projectListCreateView(generics.ListCreateAPIView):
+    """
+    View to list all Projectss or create a new Projects.
+    Any user can create a Projects.
+    """
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [AllowAny]  # Allows access to any user, authenticated or not
+
+    def get(self, request, *args, **kwargs):
+        # Allows anyone to list all Contact messages
+        return super().list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        # Allows anyone to create a Projects
+        return self.create_project(request)
+
+    def create_project(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            self.perform_create(serializer)
+            return Response({
+                'message': 'Projects created successfully.',
+                'data': serializer.data
+            }, status=status.HTTP_201_CREATED)
+        
+        return Response({
+            'message': 'Projects creation failed.',
+            'errors': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+
 class contactListCreateView(generics.ListCreateAPIView):
     """
     View to list all Contact messages or create a new Contact message.
