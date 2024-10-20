@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../api';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ const Navbar = ({ toggleSidebar }) => {
     const [userName, setUserName] = useState('');
     const [userRole, setUserRole] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
+    const dropdownRef = useRef(null); // Ref for the dropdown
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,7 +17,6 @@ const Navbar = ({ toggleSidebar }) => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
             setUserName(user.name || 'User');
-            // Assuming `user.role` is an object, extract its `name` or another property
             setUserRole(user.role_name || 'Role');
         }
 
@@ -28,7 +28,6 @@ const Navbar = ({ toggleSidebar }) => {
         // Add scroll event listener
         window.addEventListener('scroll', handleScroll);
 
-        // Cleanup function to remove event listener
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -50,7 +49,6 @@ const Navbar = ({ toggleSidebar }) => {
 
         if (success) {
             toast.success(message || 'Logout successful.');
-            // Clear local storage
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             navigate('/admin');
@@ -58,6 +56,23 @@ const Navbar = ({ toggleSidebar }) => {
             toast.error(message);
         }
     };
+
+    // Close dropdown if clicking outside of it
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownOpen(false); // Close the dropdown
+            }
+        };
+
+        // Add the event listener
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            // Cleanup the event listener
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className={`top-bar absolute left-0 xl:left-3.5 right-0 h-full mx-5 group ${isScrolled ? 'bg-primary rounded-lg px-6' : 'bg-transparent'}`}>
@@ -97,6 +112,7 @@ const Navbar = ({ toggleSidebar }) => {
                             </button>
                         </div>
                         <div
+                            ref={dropdownRef} // Attach the ref to the dropdown
                             className={`dropdown-menu absolute right-0 mt-2 z-[9999] ${dropdownOpen ? 'block' : 'hidden'}`}
                         >
                             <div className="w-56 p-2 bg-white rounded-md shadow-lg dropdown-content">
