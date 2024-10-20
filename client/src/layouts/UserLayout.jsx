@@ -1,12 +1,16 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import { Footer, Navbar } from '../user/components'
 
 const UserLayout = () => {
     return (
-        <div>
-            UserLayout
-            <Outlet />
-        </div>
+        <>
+            <div className="mouseCursor cursor-outer"></div>
+            <div className="mouseCursor cursor-inner"><span>Drag</span></div>
+            <Navbar />
+                <Outlet />
+            <Footer />
+        </>
     )
 }
 
