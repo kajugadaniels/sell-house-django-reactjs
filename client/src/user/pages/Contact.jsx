@@ -1,8 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Instagram, InstagramIcon, Twitter } from 'lucide-react'
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone_number: '',
+        message: ''
+    });
+    const [loading, setLoading] = useState(false);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            await addContactMessage(formData);
+            toast.success('Contact message sent successfully!');
+            setFormData({ name: '', email: '', phone_number: '', message: '' });
+        } catch (error) {
+            toast.error(error.message || 'Failed to send message.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
             <div className="breadcrumb-area pt-50">
@@ -43,12 +74,47 @@ const Contact = () => {
                                 <div className="section-title">
                                     <h2>Submit Form</h2>
                                 </div>
-                                <form action="#">
-                                    <input type="text" placeholder="Your Name" />
-                                    <input type="email" placeholder="Email" />
-                                    <input type="tel" placeholder="Phone Number" />
-                                    <textarea name="message" cols="30" rows="10" placeholder="Message"></textarea>
-                                    <input type="submit" value="Submit" />
+                                <form onSubmit={handleSubmit}>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Your Name"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                    <input
+                                        type="tel"
+                                        name="phone_number"
+                                        placeholder="Phone Number"
+                                        value={formData.phone_number}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                    <textarea
+                                        name="message"
+                                        cols="30"
+                                        rows="10"
+                                        placeholder="Message"
+                                        value={formData.message}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                    <button
+                                        type="submit"
+                                        className={`submit-button px-10 ${loading ? 'disabled' : ''}`}
+                                        disabled={loading}
+                                    >
+                                        {loading ? 'Submitting...' : 'Submit'}
+                                    </button>
                                 </form>
                             </div>
                         </div>
