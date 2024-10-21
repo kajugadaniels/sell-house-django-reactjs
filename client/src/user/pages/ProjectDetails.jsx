@@ -1,7 +1,38 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { fetchProjectById } from '../../admin/api';
+import { toast } from 'react-toastify'
 
 const ProjectDetails = () => {
+    const { id } = useParams();
+    const [projectData, setProjectData] = useState({
+        title: '',
+        total_area: '',
+        living_space: '',
+        price: '',
+        location: '',
+        year: '',
+        category: '',
+        type: '',
+        description: '',
+        image: null,
+    });
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const loadProjectDetails = async () => {
+            try {
+                const data = await fetchProjectById(id);
+                setProjectData(data);
+            } catch (error) {
+                toast.error('Failed to load project details.');
+                navigate('/projects');
+            }
+        };
+
+        loadProjectDetails();
+    }, [id, navigate]);
+
     return (
         <>
             <div className="breadcrumb-area pt-50">
@@ -18,8 +49,8 @@ const ProjectDetails = () => {
                 </div>
             </div>
 
-            <div class="project-details-wrap section-padding pt-0">
-                <div class="container">
+            <div className="pt-0 project-details-wrap section-padding">
+                <div className="container">
                     <div className="row gx-5 justify-content-around align-items-end mt-30">
                         <div className="col-xl-6 col-lg-6">
                             <div className="project-bg">
@@ -48,7 +79,7 @@ const ProjectDetails = () => {
                         <div className="col-xl-6 col-lg-6">
                             <div className="project-details-inner">
                                 <div className="section-title">
-                                    <h2>Project <br /> Name </h2>
+                                    <h2>{projectData.title} </h2>
                                 </div>
                                 <div className="project-details-info">
                                     <div className="single-info">
