@@ -10,6 +10,11 @@ const CATEGORY_CHOICES = [
     { id: 'Selling', name: 'Selling' },
 ];
 
+const TYPE_CHOICES = [
+    { id: 'own-house', name: 'Own a House' },
+    { id: 'rent-apartment', name: 'Rent an Apartment' },
+];
+
 const AddProject = () => {
     const [projectData, setProjectData] = useState({
         title: '',
@@ -19,6 +24,7 @@ const AddProject = () => {
         location: '',
         year: '',
         category: '',
+        type: '',
         description: '',
         image: null,
     });
@@ -127,6 +133,20 @@ const AddProject = () => {
                                                     {CATEGORY_CHOICES.map((category) => (
                                                         <option key={category.id} value={category.id}>
                                                             {category.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                                <select
+                                                    name="category"
+                                                    value={projectData.category}
+                                                    onChange={handleInputChange}
+                                                    className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
+                                                    required
+                                                >
+                                                    <option value="">Select type</option>
+                                                    {TYPE_CHOICES.map((type) => (
+                                                        <option key={type.id} value={type.id}>
+                                                            {type.name}
                                                         </option>
                                                     ))}
                                                 </select>
