@@ -20,6 +20,7 @@ const AddProject = () => {
         year: '',
         category: '',
         description: '',
+        image: null, // Add image to state
     });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -32,12 +33,26 @@ const AddProject = () => {
         });
     };
 
+    // Handle image file change
+    const handleImageChange = (e) => {
+        setProjectData({
+            ...projectData,
+            image: e.target.files[0], // Store image file
+        });
+    };
+
     const handleAddProject = async (e) => {
         e.preventDefault();
         setLoading(true);
+
+        // Prepare form data to include the image
+        const formData = new FormData();
+        Object.keys(projectData).forEach(key => {
+            formData.append(key, projectData[key]);
+        });
+
         try {
-            const payload = { ...projectData };
-            await addProject(payload);
+            await addProject(formData); // Send formData with the image file
             toast.success('Project registered successfully.');
             navigate('/admin/projects');
         } catch (error) {
@@ -108,6 +123,42 @@ const AddProject = () => {
                                         </div>
                                     </div>
 
+                                    {/* Project Image & Price */}
+                                    <div className="flex-col block pt-5 mt-5 sm:flex xl:flex-row xl:items-center">
+                                        <div className="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-64">
+                                            <div className="text-left">
+                                                <div className="flex items-center">
+                                                    <div className="font-medium">Project Image & Price</div>
+                                                    <div className="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">Required</div>
+                                                </div>
+                                                <div className="mt-1.5 text-xs leading-relaxed text-slate-500/80 xl:mt-3">
+                                                    Upload an image for the project and its price
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex-1 w-full mt-3 xl:mt-0">
+                                            <div className="flex flex-col items-center md:flex-row">
+                                                <input
+                                                    type="file"
+                                                    name="image"
+                                                    accept="image/*"
+                                                    onChange={handleImageChange}
+                                                    className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
+                                                    required
+                                                />
+                                                <input
+                                                    type="number"
+                                                    name="price"
+                                                    value={projectData.price}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Enter Price"
+                                                    className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {/* Project Total Area & Living Space */}
                                     <div className="flex-col block pt-5 mt-5 sm:flex xl:flex-row xl:items-center">
                                         <div className="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-64">
@@ -117,7 +168,7 @@ const AddProject = () => {
                                                     <div className="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">Required</div>
                                                 </div>
                                                 <div className="mt-1.5 text-xs leading-relaxed text-slate-500/80 xl:mt-3">
-                                                    Provide the total area size of the project and its living space size and price.
+                                                    Provide the total area size of the project and its living space size.
                                                 </div>
                                             </div>
                                         </div>
@@ -138,15 +189,6 @@ const AddProject = () => {
                                                     value={projectData.living_space}
                                                     onChange={handleInputChange}
                                                     placeholder="Enter Space Size"
-                                                    className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
-                                                    required
-                                                />
-                                                <input
-                                                    type="number"
-                                                    name="price"
-                                                    value={projectData.price}
-                                                    onChange={handleInputChange}
-                                                    placeholder="Enter Price"
                                                     className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
                                                     required
                                                 />
