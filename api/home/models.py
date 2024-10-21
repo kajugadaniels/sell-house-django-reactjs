@@ -39,7 +39,7 @@ class Project(models.Model):
     location = models.CharField(max_length=255, null=True, blank=True)
     year = models.CharField(max_length=255, null=True, blank=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, null=True, blank=True)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
