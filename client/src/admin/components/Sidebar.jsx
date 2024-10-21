@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { House, MailSearch } from 'lucide-react';
+import { House, MailSearch, Projector } from 'lucide-react';
 
 const Sidebar = () => {
     const location = useLocation();
@@ -38,7 +38,7 @@ const Sidebar = () => {
                     </li>
                     <li className={isActive('/admin/projects') ? 'bg-white text-primary/10 border rounded-lg border-primary/10' : ''}>
                         <Link to="/admin/projects" className="side-menu__link">
-                            <MailSearch className="stroke-[1] w-5 h-5 side-menu__link__icon" />
+                            <Projector className="stroke-[1] w-5 h-5 side-menu__link__icon" />
                             <div className="side-menu__link__title">Projects</div>
                         </Link>
                     </li>
