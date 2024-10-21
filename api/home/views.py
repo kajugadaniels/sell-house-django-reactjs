@@ -51,24 +51,30 @@ class projectListCreateView(generics.ListCreateAPIView):
 
 class projectRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     """
-    API view to retrieve, update, or delete a project. Only accessible to users with the 'Admin' role or superusers.
+    API view to retrieve, update, or delete a project.
+    GET: Accessible by all users without requiring a token.
+    PUT, DELETE: Only accessible by users with the 'Admin' role or superusers (requires token).
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [AllowAny]  # Default permission for GET
+
+    def get_permissions(self):
+        # If it's a PUT or DELETE request, require authentication, otherwise allow any access
+        if self.request.method in ['PUT', 'DELETE']:
+            return [IsAuthenticated()]  # Token required only for PUT and DELETE
+        return [AllowAny()]  # No token required for GET
 
     def get_object(self):
         project = get_object_or_404(Project, pk=self.kwargs['pk'])
         return project
 
     def get(self, request, *args, **kwargs):
-        # Check if the user is a superuser or has the 'Admin' role
-        if not request.user.is_superuser and request.user.role != 'Admin':
-            raise PermissionDenied({'message': "You do not have permission to view this project."})
+        # Allow any user to retrieve a project without token
         return super().retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
-        # Check if the user is a superuser or has the 'Admin' role
+        # Require user to be superuser or have 'Admin' role for PUT
         if not request.user.is_superuser and request.user.role != 'Admin':
             raise PermissionDenied({'message': "You do not have permission to update this project."})
 
@@ -83,7 +89,7 @@ class projectRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
             }, status=response.status_code)
 
     def delete(self, request, *args, **kwargs):
-        # Check if the user is a superuser or has the 'Admin' role
+        # Require user to be superuser or have 'Admin' role for DELETE
         if not request.user.is_superuser and request.user.role != 'Admin':
             raise PermissionDenied({'message': "You do not have permission to delete this project."})
 
