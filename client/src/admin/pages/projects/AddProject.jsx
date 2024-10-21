@@ -20,7 +20,7 @@ const AddProject = () => {
         year: '',
         category: '',
         description: '',
-        image: null, // Add image to state
+        image: null,
     });
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -33,11 +33,10 @@ const AddProject = () => {
         });
     };
 
-    // Handle image file change
     const handleImageChange = (e) => {
         setProjectData({
             ...projectData,
-            image: e.target.files[0], // Store image file
+            image: e.target.files[0],
         });
     };
 
@@ -45,17 +44,29 @@ const AddProject = () => {
         e.preventDefault();
         setLoading(true);
 
-        // Prepare form data to include the image
         const formData = new FormData();
         Object.keys(projectData).forEach(key => {
-            formData.append(key, projectData[key]);
+            if (key === 'image' && projectData[key]) {
+                formData.append('image', projectData[key], projectData[key].name);
+            } else {
+                formData.append(key, projectData[key]);
+            }
         });
 
         try {
-            await addProject(formData); // Send formData with the image file
-            toast.success('Project registered successfully.');
-            navigate('/admin/projects');
+            const response = await addProject(formData);
+            console.log('Server response:', response); // Log the entire response for debugging
+            if (response && response.message) {
+                toast.success(response.message);
+                navigate('/admin/projects');
+            } else {
+                throw new Error('Unexpected response format');
+            }
         } catch (error) {
+            console.error('Error adding project:', error);
+            if (error.response) {
+                console.error('Server error response:', error.response);
+            }
             toast.error(error.message || 'An error occurred while adding the project.');
         } finally {
             setLoading(false);
