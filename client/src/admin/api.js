@@ -133,6 +133,21 @@ export const addProject = async (data) => {
     }
 };
 
+export const fetchProjectById = async (id) => {
+    try {
+        const response = await api.get(`/project/${id}/`, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response
+            ? error.response.data
+            : new Error('An error occurred while fetching the project.');
+    }
+};
+
 export const updateProject = async (id, data) => {
     try {
         const response = await api.put(`/project/${id}/`, data, {
