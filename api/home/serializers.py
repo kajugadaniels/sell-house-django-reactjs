@@ -13,7 +13,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ['id', 'title', 'slug', 'total_area', 'living_space', 'price', 'location', 'year', 'category', 'description', 'image']
+        fields = ['id', 'title', 'slug', 'total_area', 'living_space', 'price', 'location', 'year', 'category', 'type', 'description', 'image']
 
     def update(self, instance, validated_data):
         # Handle image upload separately if provided
