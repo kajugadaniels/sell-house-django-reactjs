@@ -17,6 +17,8 @@ const Navbar = () => {
         { path: '/about', label: 'About Us' },
         { path: '/services', label: 'Services' },
         { path: '/projects', label: 'Projects' },
+        { path: '/own-house', label: 'Own a House' },
+        { path: '/rent-apartment', label: 'Rent an Apartment' },
         { path: '/contact', label: 'Contact' },
     ];
 
@@ -26,12 +28,12 @@ const Navbar = () => {
                 <div className="navigation">
                     <div className="container">
                         <div className="row align-items-center">
-                            <div className="col-xl-5 col-lg-4 col-6">
+                            <div className="col-xl-3 col-lg-3 col-6">
                                 <div className="logo">
                                     <Link to="/" className="logo">WeLink Home.</Link>
                                 </div>
                             </div>
-                            <div className="col-xl-7 col-lg-8 d-none d-lg-block text-lg-end">
+                            <div className="col-xl-9 col-lg-9 d-none d-lg-block text-lg-end">
                                 <div className="main-menu">
                                     <ul>
                                         {menuItems.map((item) => (

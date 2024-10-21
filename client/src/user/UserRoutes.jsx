@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { About, Contact, Home, ProjectDetails, Projects, Services } from './pages';
+import { About, Contact, Home, OwnHouse, ProjectDetails, Projects, RentApartment, Services } from './pages';
 import UserLayout from '../layouts/UserLayout';
 
 const UserRoutes = () => {
@@ -24,6 +24,8 @@ const UserRoutes = () => {
                 <Route path="/services" element={<Services />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/project/:slug" element={<ProjectDetails />} />
+                <Route path="/own-house" element={<OwnHouse />} />
+                <Route path="/rent-apartment" element={<RentApartment />} />
                 <Route path="/contact" element={<Contact />} />
             </Route>
         </Routes>
