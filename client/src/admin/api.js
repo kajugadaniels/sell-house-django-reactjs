@@ -124,11 +124,18 @@ export const addProject = async (data) => {
     try {
         const response = await api.post('/projects/', data, {
             headers: {
+                'Content-Type': 'multipart/form-data',
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
+        console.log('API response:', response); // Log the entire response for debugging
         return response.data;
     } catch (error) {
+        console.error('API error:', error);
+        if (error.response) {
+            console.error('Error response:', error.response);
+            console.error('Error response data:', error.response.data);
+        }
         throw error.response ? error.response.data : new Error('An error occurred while adding the project.');
     }
 };
