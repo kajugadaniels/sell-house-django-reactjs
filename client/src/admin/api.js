@@ -162,3 +162,16 @@ export const updateProject = async (id, data) => {
             : new Error('An error occurred while updating the project.');
     }
 };
+
+export const deleteProject = async (id) => {
+    try {
+        const response = await api.delete(`/project/${id}/`, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('An error occurred while deleting the project.');
+    }
+};
