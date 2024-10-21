@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
 import { toast } from 'react-toastify'
-import { getProjects } from '../../admin/api'
 import { motion, AnimatePresence } from 'framer-motion'
+import { getProjects } from '../api'
 
 const Projects = () => {
     const [projects, setProjects] = useState([])

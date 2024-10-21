@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { fetchProjectById } from '../../admin/api';
 import { toast } from 'react-toastify'
+import { fetchProjectById } from '../api';
 
 const ProjectDetails = () => {
     const { id } = useParams();
