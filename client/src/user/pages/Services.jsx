@@ -17,7 +17,7 @@ const Services = () => {
                 </div>
             </div>
 
-            <div id="price_page" className="hero-area">
+            <div id="price_page" className="hero-area gray-bg">
                 <div className="container">
                     <div className="row hero-area-inner align-items-end">
                         <div className="col-xl-9 col-lg-9 col-md-10">
