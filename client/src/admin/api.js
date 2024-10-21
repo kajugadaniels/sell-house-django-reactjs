@@ -132,3 +132,18 @@ export const addProject = async (data) => {
         throw error.response ? error.response.data : new Error('An error occurred while adding the project.');
     }
 };
+
+export const updateProject = async (id, data) => {
+    try {
+        const response = await api.put(`/project/${id}/`, data, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response
+            ? error.response.data
+            : new Error('An error occurred while updating the project.');
+    }
+};
