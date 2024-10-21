@@ -11,8 +11,8 @@ const CATEGORY_CHOICES = [
 ];
 
 const TYPE_CHOICES = [
-    { id: 'own-house', name: 'Own a House' },
-    { id: 'rent-apartment', name: 'Rent an Apartment' },
+    { id: 'Own House', name: 'Own a House' },
+    { id: 'Rent Apartment', name: 'Rent an Apartment' },
 ];
 
 const EditProject = () => {

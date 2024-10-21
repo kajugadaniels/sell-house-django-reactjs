@@ -25,8 +25,8 @@ class Project(models.Model):
         ('Selling', 'Selling'),
     ]
     TYPE_CHOICES = [
-        ('own-house', 'Own House'),
-        ('rent-apartment', 'Rent Apartment'),
+        ('Own House', 'Own House'),
+        ('Rent Apartment', 'Rent Apartment'),
     ]
 
     title = models.CharField(max_length=255)

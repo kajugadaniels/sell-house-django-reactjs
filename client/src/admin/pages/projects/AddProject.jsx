@@ -11,8 +11,8 @@ const CATEGORY_CHOICES = [
 ];
 
 const TYPE_CHOICES = [
-    { id: 'own-house', name: 'Own a House' },
-    { id: 'rent-apartment', name: 'Rent an Apartment' },
+    { id: 'Own House', name: 'Own a House' },
+    { id: 'Rent Apartment', name: 'Rent an Apartment' },
 ];
 
 const AddProject = () => {
@@ -137,8 +137,8 @@ const AddProject = () => {
                                                     ))}
                                                 </select>
                                                 <select
-                                                    name="category"
-                                                    value={projectData.category}
+                                                    name="type"
+                                                    value={projectData.type}
                                                     onChange={handleInputChange}
                                                     className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
                                                     required
