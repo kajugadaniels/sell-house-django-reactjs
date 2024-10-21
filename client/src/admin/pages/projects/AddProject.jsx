@@ -191,6 +191,34 @@ const AddProject = () => {
                                         </div>
                                     </div>
 
+                                    {/* Project Description */}
+                                    <div className="flex-col block pt-5 mt-5 sm:flex xl:flex-row xl:items-center">
+                                        <div className="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:mr-14 xl:w-64">
+                                            <div className="text-left">
+                                                <div className="flex items-center">
+                                                    <div className="font-medium">Description</div>
+                                                    <div className="ml-2.5 rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 text-xs text-slate-500 dark:bg-darkmode-300 dark:text-slate-400">Required</div>
+                                                </div>
+                                                <div className="mt-1.5 text-xs leading-relaxed text-slate-500/80 xl:mt-3">
+                                                    Provide details of the project.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex-1 w-full mt-3 xl:mt-0">
+                                            <div className="flex flex-col items-center md:flex-row">
+                                                <textarea
+                                                    name="description"
+                                                    value={projectData.description}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Enter description of the project"
+                                                    className="w-full text-sm transition duration-200 ease-in-out rounded-md shadow-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary"
+                                                    rows='5'
+                                                    required
+                                                ></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {/* Submit Button with Loading */}
                                     <div className="flex py-5 border-t border-slate-200/80 px-7 md:justify-end">
                                         <button
