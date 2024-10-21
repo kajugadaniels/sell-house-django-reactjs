@@ -6,3 +6,4 @@ export { default as Contacts } from './Contacts'
 
 export { default as GetProjects } from './projects/GetProjects'
 export { default as AddProject } from './projects/AddProject'
+export { default as EditProject } from './projects/EditProject'
