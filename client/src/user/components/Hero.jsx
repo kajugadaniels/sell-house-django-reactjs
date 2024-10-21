@@ -1,5 +1,6 @@
 import { Play } from 'lucide-react'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Hero = () => {
     return (
@@ -16,11 +17,11 @@ const Hero = () => {
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </p>
                             <div className="mt-40 hero-btn wow fadeInUp animated" data-wow-delay="500ms">
-                                <a href="/services" className="mr-40 theme-btn">Get Started</a>
+                                <Link to="/services" className="mr-40 theme-btn">Get Started</Link>
                                 <div className="video-wrap d-inline-flex align-items-center">
-                                    <a href="#" className="video-play-btn mfp-iframe">
+                                    <Link to="#" className="video-play-btn mfp-iframe">
                                         <Play className="las la-play" />
-                                    </a>
+                                    </Link>
                                     <span>View Details</span>
                                 </div>
                             </div>
