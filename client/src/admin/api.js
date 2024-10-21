@@ -160,6 +160,7 @@ export const updateProject = async (id, data) => {
         const response = await api.put(`/project/${id}/`, data, {
             headers: {
                 Authorization: `Token ${localStorage.getItem('token')}`,
+                'Content-Type': 'multipart/form-data',
             },
         });
         return response.data;
