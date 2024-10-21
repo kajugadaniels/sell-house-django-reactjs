@@ -146,6 +146,9 @@ const Home = () => {
                                 <p>
                                     Combine our knowledge, experience and award-winning designs with the dedicated in-house construction team, we put smiles on the faces of all our satisfied customers.
                                 </p>
+                                <Link to='/projects' className='text-underline'>
+                                    See more
+                                </Link>
                             </div>
                         </div>
                     </div>
