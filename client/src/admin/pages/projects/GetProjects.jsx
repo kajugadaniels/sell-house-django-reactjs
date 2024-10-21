@@ -52,7 +52,7 @@ const GetProjects = () => {
     };
 
     const handleEdit = (projectId) => {
-        navigate(`/project/${projectId}`);
+        navigate(`/admin/project/edit/${projectId}`);
     };
 
     const handleDelete = async (projectId) => {
