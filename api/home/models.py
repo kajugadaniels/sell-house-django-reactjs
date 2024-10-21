@@ -14,6 +14,12 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
 def project_image_path(instance, filename):
     base_filename, file_extension = os.path.splitext(filename)
     return f'projects/project_{slugify(instance.title)}_{instance.category}_{instance.created_at}{file_extension}'
