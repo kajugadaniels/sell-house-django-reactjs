@@ -21,8 +21,12 @@ def project_image_path(instance, filename):
 class Project(models.Model):
     CATEGORY_CHOICES = [
         ('Residential', 'Residential'),
-        ('Commercial', 'Regular Projects'),
+        ('Commercial', 'Commercial'),
         ('Selling', 'Selling'),
+    ]
+    TYPE_CHOICES = [
+        ('own-house', 'Own House'),
+        ('rent-apartment', 'Rent Apartment'),
     ]
 
     title = models.CharField(max_length=255)
@@ -39,6 +43,7 @@ class Project(models.Model):
     location = models.CharField(max_length=255, null=True, blank=True)
     year = models.CharField(max_length=255, null=True, blank=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, null=True, blank=True)
+    type = models.CharField(max_length=50, choices=TYPE_CHOICES, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
