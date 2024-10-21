@@ -1,44 +1,69 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
-import { toast } from 'react-toastify';
-import { getProjects } from '../../admin/api';
+import { toast } from 'react-toastify'
+import { getProjects } from '../../admin/api'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Projects = () => {
-    const [projects, setProjects] = useState([]);
-    const [filteredProjects, setFilteredProjects] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [projectsPerPage] = useState(10);
-    const navigate = useNavigate();
+    const [projects, setProjects] = useState([])
+    const [filteredProjects, setFilteredProjects] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [projectsPerPage] = useState(12)
+    const [activeCategory, setActiveCategory] = useState('All')
+    const [showMoreProjects, setShowMoreProjects] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const loadProjects = async () => {
-            setLoading(true);
+            setLoading(true)
             try {
-                const data = await getProjects();
-                setProjects(data);
-                setFilteredProjects(data);
+                const data = await getProjects()
+                setProjects(data)
+                setFilteredProjects(data)
             } catch (error) {
-                toast.error('Failed to load projects.');
+                toast.error('Failed to load projects.')
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
-        loadProjects();
-    }, []);
+        }
+        loadProjects()
+    }, [])
 
     const handleView = (projectId) => {
-        navigate(`/project/${projectId}`);
-    };
+        navigate(`/project/${projectId}`)
+    }
 
-    const indexOfLastProject = currentPage * projectsPerPage;
-    const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-    const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
+    const handleFilter = (category) => {
+        setActiveCategory(category)
+        if (category === 'All') {
+            setFilteredProjects(projects)
+        } else {
+            const filtered = projects.filter(project => project.category === category)
+            setFilteredProjects(filtered)
+        }
+        setCurrentPage(1)
+        setShowMoreProjects(false)
+    }
 
-    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+    const indexOfLastProject = currentPage * projectsPerPage
+    const indexOfFirstProject = indexOfLastProject - projectsPerPage
+    const currentProjects = filteredProjects.slice(
+        indexOfFirstProject,
+        showMoreProjects ? filteredProjects.length : indexOfLastProject
+    )
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage)
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber)
+        setShowMoreProjects(false)
+    }
+
+    const handleLoadMore = () => {
+        setShowMoreProjects(true)
+    }
 
     return (
         <>
@@ -73,51 +98,83 @@ const Projects = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Filter Menu */}
+                    <div className="row text-lg-end mt-30">
+                        <ul id="menu-filter" className="mb-0 project-menu">
+                            <AnimatePresence>
+                                {['All', 'Residential', 'Commercial', 'Selling'].map((category, index) => (
+                                    <motion.li
+                                        key={index}
+                                        className="list-inline-item"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 20 }}
+                                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                                    >
+                                        <a
+                                            className={activeCategory === category ? 'active' : ''}
+                                            onClick={() => handleFilter(category)}
+                                        >
+                                            {category}
+                                        </a>
+                                    </motion.li>
+                                ))}
+                            </AnimatePresence>
+                        </ul>
+                    </div>
+
+                    {/* Projects List */}
                     <div id="project-masonry" data-scroll-index="2">
                         <div className="container">
-                            <div className="row text-lg-end mt-30">
-                                <ul id="menu-filter" className="mb-0 project-menu">
-                                    <li className="list-inline-item">
-                                        <a className="active" data-filter="*">Show All</a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a className="" data-filter=".residential">Residential</a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a className="" data-filter=".commercial">Commercial</a>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <a className="" data-filter=".selling">Selling</a>
-                                    </li>
-                                </ul>
-                            </div>
                             <div id="project-grid" className="project-grid project-section pt-60 pb-90">
                                 <div className="container-fluid">
                                     {loading ? (
                                         <div className="py-5 text-center">Loading projects...</div>
                                     ) : (
                                         <div className="row">
-                                            {currentProjects.map((project) => (
-                                                <div key={project.id} className="col-xl-4 col-lg-4 col-md-6 residence">
-                                                    <div className="single-project-item">
-                                                        <div className="project-bg">
-                                                            <img src="https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg" alt="" style={{ backgroundSize: 'contain' }} />
-                                                        </div>
-                                                        <div className="project-info">
-                                                            <div onClick={() => handleView(project.id)}>
-                                                                <h5>{project.title}</h5>
-                                                                <p>{project.category}</p>
+                                            <AnimatePresence>
+                                                {currentProjects.map((project, index) => (
+                                                    <motion.div
+                                                        key={project.id}
+                                                        className="col-xl-4 col-lg-4 col-md-6 residence"
+                                                        initial={{ opacity: 0, y: 20 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: 20 }}
+                                                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                                                    >
+                                                        <div className="single-project-item">
+                                                            <div className="project-bg">
+                                                                <img src='https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg' alt={project.title} style={{ backgroundSize: 'contain' }} />
+                                                            </div>
+                                                            <div className="project-info">
+                                                                <div onClick={() => handleView(project.id)}>
+                                                                    <h5>{project.title}</h5>
+                                                                    <p>{project.category}</p>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            ))}
+                                                    </motion.div>
+                                                ))}
+                                            </AnimatePresence>
                                         </div>
                                     )}
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    {/* Load More Button */}
+                    {currentPage < totalPages && (
+                        <div className="mt-5 text-center">
+                            <button
+                                className="btn btn-primary"
+                                onClick={handleLoadMore}
+                            >
+                                Load More
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </>
