@@ -123,19 +123,13 @@ const GetProjects = () => {
                                                         Title
                                                     </td>
                                                     <td className="px-5 py-4 font-medium border-t border-b bg-slate-50 text-slate-500">
-                                                        Total Area
-                                                    </td>
-                                                    <td className="px-5 py-4 font-medium border-t border-b bg-slate-50 text-slate-500">
-                                                        Living Space
-                                                    </td>
-                                                    <td className="px-5 py-4 font-medium border-t border-b bg-slate-50 text-slate-500">
                                                         Location
                                                     </td>
                                                     <td className="px-5 py-4 font-medium border-t border-b bg-slate-50 text-slate-500">
-                                                        Year
+                                                        Category & Type
                                                     </td>
                                                     <td className="px-5 py-4 font-medium border-t border-b bg-slate-50 text-slate-500">
-                                                        Category
+                                                        Year Built
                                                     </td>
                                                     <td className="px-5 py-4 font-medium border-t border-b bg-slate-50 text-slate-500">
                                                         Price
@@ -151,23 +145,51 @@ const GetProjects = () => {
                                                         <td className="px-5 py-4 border-b border-dashed">
                                                             <input type="checkbox" className="transition-all duration-100 ease-in-out rounded shadow-sm cursor-pointer border-slate-200 focus:ring-4 focus:ring-primary focus:ring-opacity-20" />
                                                         </td>
-                                                        <td className="px-5 py-4 border-b border-dashed">
-                                                            {project.title || 'N/A'}
+                                                        <td className="px-5 py-4 border-b border-dashed dark:border-darkmode-300 w-80 dark:bg-darkmode-600">
+                                                            <div className="flex items-center">
+                                                                <div className="image-fit zoom-in h-9 w-9">
+                                                                    {project.imageUrl ? (
+                                                                        <img src={project.image} alt="{project.title}" className="tooltip cursor-pointer rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]" />
+                                                                    ) : (
+                                                                        'No image'
+                                                                    )}
+                                                                </div>
+                                                                <div className="ml-3.5">
+                                                                    <span className="font-medium whitespace-nowrap">
+                                                                        {project.title || 'N/A'}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                         </td>
-                                                        <td className="px-5 py-4 border-b border-dashed">
-                                                            {project.total_area || 'N/A'}
+                                                        <td className="px-5 py-4 border-b border-dashed w-80">
+                                                            <div className="flex items-center">
+                                                                <div className="ml-3.5">
+                                                                    <span className="font-medium whitespace-nowrap">
+                                                                        {project.location || 'N/A'}
+                                                                    </span>
+                                                                    <div className="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                                                        Total Area: <span className='font-bold'>{project.total_area}</span>
+                                                                    </div>
+                                                                    <div className="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                                                        Living Space: <span className='font-bold'>{project.living_space}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
-                                                        <td className="px-5 py-4 border-b border-dashed">
-                                                            {project.living_space || 'N/A'}
-                                                        </td>
-                                                        <td className="px-5 py-4 border-b border-dashed">
-                                                            {project.location || 'N/A'}
+                                                        <td className="px-5 py-4 border-b border-dashed w-80">
+                                                            <div className="flex items-center">
+                                                                <div className="ml-3.5">
+                                                                    <span className="font-medium whitespace-nowrap">
+                                                                        {project.category || 'N/A'}
+                                                                    </span>
+                                                                    <div className="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                                                        Type: <span className='font-bold'>{project.type}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                         <td className="px-5 py-4 border-b border-dashed">
                                                             {project.year || 'N/A'}
-                                                        </td>
-                                                        <td className="px-5 py-4 border-b border-dashed">
-                                                            {project.category || 'N/A'}
                                                         </td>
                                                         <td className="px-5 py-4 border-b border-dashed">
                                                             {project.price || 'N/A'}
