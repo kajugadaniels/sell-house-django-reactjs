@@ -7,5 +7,7 @@ app_name = 'users'
 
 urlpatterns = [
     path('projects/', projectListCreateView.as_view(), name='projectListCreate'),
+    path('project/<int:pk>/', projectRetrieveUpdateDestroyView.as_view(), name='projectRetrieveUpdateDestroy'),
+
     path('contacts/', contactListCreateView.as_view(), name='contactListCreate'),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,8 +1,10 @@
 from home.models import *
 from home.serializers import *
 from account.serializers import *
-from rest_framework import generics, status
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
+from rest_framework import generics, status, permissions
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class projectListCreateView(generics.ListCreateAPIView):
@@ -46,6 +48,48 @@ class projectListCreateView(generics.ListCreateAPIView):
             'message': 'Project creation failed.',
             'errors': serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
+
+class projectRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    API view to retrieve, update, or delete a project. Only accessible to users with the 'Admin' role or superusers.
+    """
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        return project
+
+    def get(self, request, *args, **kwargs):
+        # Check if the user is a superuser or has the 'Admin' role
+        if not request.user.is_superuser and request.user.role != 'Admin':
+            raise PermissionDenied({'message': "You do not have permission to view this project."})
+        return super().retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        # Check if the user is a superuser or has the 'Admin' role
+        if not request.user.is_superuser and request.user.role != 'Admin':
+            raise PermissionDenied({'message': "You do not have permission to update this project."})
+
+        response = super().update(request, *args, **kwargs)
+        if response.status_code == status.HTTP_200_OK:
+            response.data['message'] = 'Project updated successfully.'
+            return Response(response.data, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                'message': 'Project update failed.',
+                'errors': response.data
+            }, status=response.status_code)
+
+    def delete(self, request, *args, **kwargs):
+        # Check if the user is a superuser or has the 'Admin' role
+        if not request.user.is_superuser and request.user.role != 'Admin':
+            raise PermissionDenied({'message': "You do not have permission to delete this project."})
+
+        project = self.get_object()
+        project.delete()
+        return Response({'message': 'Project deleted successfully.'}, status=status.HTTP_200_OK)
 
 class contactListCreateView(generics.ListCreateAPIView):
     """
