@@ -119,3 +119,16 @@ export const getProjects = async () => {
         throw error.response ? error.response.data : new Error('An error occurred while fetching projects.');
     }
 };
+
+export const addProject = async (data) => {
+    try {
+        const response = await api.post('/projects/', data, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('An error occurred while adding the project.');
+    }
+};
