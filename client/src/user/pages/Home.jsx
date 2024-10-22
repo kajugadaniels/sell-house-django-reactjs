@@ -1,10 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Hero } from '../components'
 import { AboutArea, Construct, Design, Develop } from '../assets/img'
 import { ArrowUpRight, Play } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { getProjects } from '../api'
 
 const Home = () => {
+    const [projects, setProjects] = useState([])
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const loadProjects = async () => {
+            setLoading(true)
+            try {
+                const data = await getProjects()
+                setProjects(data.slice(0, 4))
+            } catch (error) {
+                toast.error('Failed to load projects.')
+            } finally {
+                setLoading(false)
+            }
+        }
+        loadProjects()
+    }, [])
+
+    const handleView = (projectId) => {
+        navigate(`/project/${projectId}`)
+    }
+
     return (
         <>
             <Hero />
@@ -142,25 +166,31 @@ const Home = () => {
                     </div>
                     <div className="row">
                         <div className="tab-content" id="nav-tabContent">
-                            <div className="tab-pane fade show active">
-                                <div className="pt-10 row">
-                                    <div className="col-xl-4 col-lg-4 col-md-4 col-12">
-                                        <div className="featured-work-wrapper" style={{ backgroundImage: "url('https://capricorn-theme.com/html/architon/assets/img/project/project-details/project-details.jpg')" }}>
-                                            <div className="featured-work-inner">
-                                                <div className="fetured-work-bg">
-                                                </div>
-                                                <a href="#" className="details-link">
-                                                    <ArrowUpRight className="text-white" />
-                                                </a>
-                                                <div className="featured-work-info">
-                                                    <h2>01</h2>
-                                                    <h4>Mediterrean Villa</h4>
+                            {loading ? (
+                                <div className="py-5 text-center">Loading projects...</div>
+                            ) : (
+                                <div className="tab-pane fade show active">
+                                    <div className="pt-10 row">
+                                        {projects.map((project, index) => (
+                                            <div className="col-xl-4 col-lg-4 col-md-4 col-12">
+                                                <div className="featured-work-wrapper" style={{ backgroundImage: "url('https://capricorn-theme.com/html/architon/assets/img/project/project-details/project-details.jpg')" }} onClick={() => handleView(project.id)}>
+                                                    <div className="featured-work-inner">
+                                                        <div className="fetured-work-bg">
+                                                        </div>
+                                                        <div className="details-link" onClick={() => handleView(project.id)}>
+                                                            <ArrowUpRight className="text-white" />
+                                                        </div>
+                                                        <div className="featured-work-info">
+                                                            <h2 style={{ fontSize: '50px' }}>{project.price}</h2>
+                                                            <h4 style={{ fontSize: '24px' }} className='fw-bold'>{project.title}</h4>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        ))}
                                     </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>
