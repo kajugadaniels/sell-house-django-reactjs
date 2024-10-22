@@ -52,8 +52,10 @@ const Contact = () => {
             <div className="pt-0 contact-section section-padding">
                 <div className="container">
                     <div className="col-xl-12 col-lg-12">
-                        <div className="mt-40 section-title text-up">
-                            <h2>Contact Us</h2>
+                        <div className="mt-40 section-title text-low">
+                            <h2 className='text-black fw-bold'>
+                                Contact Us
+                            </h2>
                         </div>
                     </div>
                     <div className="row justify-content-center mt-60">
