@@ -4723,7 +4723,7 @@ figcaption {
 
 /* Video Section  */
 .video-section {
-  background-image: url(../img/video-bg.jpg);
+  background-image: url('https://capricorn-theme.com/html/architon/assets/img/video-bg.jpg');
   background-size: cover;
   background-position: center;
   height: 550px;

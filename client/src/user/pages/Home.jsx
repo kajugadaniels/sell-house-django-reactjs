@@ -1,7 +1,7 @@
 import React from 'react'
 import { Hero } from '../components'
 import { AboutArea, Construct, Design, Develop } from '../assets/img'
-import { Plus } from 'lucide-react'
+import { ArrowUpRight, Play } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const Home = () => {
@@ -131,76 +131,46 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className="team-section section-padding pb-90">
+            <div id="project-2" className="project-section section-padding pt-100 pb-100">
                 <div className="container">
-                    <div className="row border-bottom">
-                        <div className="col-xl-7 col-lg-7">
-                            <div className="section-title text-low">
-                                <h2 className='text-black fw-bold'>
-                                    Discover our <br /> latest projects
-                                </h2>
-                            </div>
-                        </div>
-                        <div className="col-xl-5 col-lg-5">
-                            <div className="right-content text-lg-end">
-                                <p>
-                                    Combine our knowledge, experience and award-winning designs with the dedicated in-house construction team, we put smiles on the faces of all our satisfied customers.
-                                </p>
-                                <Link to='/projects' className='text-underline'>
-                                    See more
-                                </Link>
+                    <div className="row justify-content-center border-bottom">
+                        <div className="col-xl-12">
+                            <div className="section-title text-up">
+                                <h2>Works <span>4</span></h2>
                             </div>
                         </div>
                     </div>
-                    <div className="mt-40 row gx-5">
-                        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-                            <div className="single-team-wrap">
-                                <img src="https://capricorn-theme.com/html/architon/assets/img/project/project-details/project-details.jpg" alt="" />
-                                <div className="team-info">
-                                    <span>
-                                        Location
-                                    </span>
-                                    <span> 
-                                        Name Residence
-                                    </span>
+                    <div className="row">
+                        <div className="tab-content" id="nav-tabContent">
+                            <div className="tab-pane fade show active">
+                                <div className="pt-10 row">
+                                    <div className="col-xl-4 col-lg-4 col-md-4 col-12">
+                                        <div className="featured-work-wrapper" style={{ backgroundImage: "url('https://capricorn-theme.com/html/architon/assets/img/project/project-details/project-details.jpg')" }}>
+                                            <div className="featured-work-inner">
+                                                <div className="fetured-work-bg">
+                                                </div>
+                                                <a href="#" className="details-link">
+                                                    <ArrowUpRight className="text-white" />
+                                                </a>
+                                                <div className="featured-work-info">
+                                                    <h2>01</h2>
+                                                    <h4>Mediterrean Villa</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p className="designation">
-                                    Price: 400 RWF
-                                </p>
                             </div>
                         </div>
-                        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-                            <div className="single-team-wrap">
-                                <img src="https://capricorn-theme.com/html/architon/assets/img/project/project-details/project-details.jpg" alt="" />
-                                <div className="team-info">
-                                    <span>
-                                        Location
-                                    </span>
-                                    <span> 
-                                        Name Residence
-                                    </span>
-                                </div>
-                                <p className="designation">
-                                    Price: 400 RWF
-                                </p>
-                            </div>
-                        </div>
-                        <div className="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-                            <div className="single-team-wrap">
-                                <img src="https://capricorn-theme.com/html/architon/assets/img/project/project-details/project-details.jpg" alt="" />
-                                <div className="team-info">
-                                    <span>
-                                        Location
-                                    </span>
-                                    <span> 
-                                        Name Residence
-                                    </span>
-                                </div>
-                                <p className="designation">
-                                    Price: 400 RWF
-                                </p>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-section">
+                <div class="overlay"></div>
+                <div class="video-inner-box">
+                    <div class="play-btn">
+                        <a href="#" class="video-play-btn mfp-iframe"><Play /></a>
                     </div>
                 </div>
             </div>
