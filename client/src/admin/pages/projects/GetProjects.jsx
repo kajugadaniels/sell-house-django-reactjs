@@ -148,11 +148,7 @@ const GetProjects = () => {
                                                         <td className="px-5 py-4 border-b border-dashed dark:border-darkmode-300 w-80 dark:bg-darkmode-600">
                                                             <div className="flex items-center">
                                                                 <div className="image-fit zoom-in h-9 w-9">
-                                                                    {project.imageUrl ? (
-                                                                        <img src={project.image} alt="{project.title}" className="tooltip cursor-pointer rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]" />
-                                                                    ) : (
-                                                                        'No image'
-                                                                    )}
+                                                                    <img src={project.image} alt="{project.title}" className="tooltip cursor-pointer rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]" />
                                                                 </div>
                                                                 <div className="ml-3.5">
                                                                     <span className="font-medium whitespace-nowrap">
