@@ -69,7 +69,7 @@ const ProjectDetails = () => {
                                         <p>{projectData.category}</p>
                                     </div>
                                     <div className="single-brief">
-                                        <h6>Category</h6>
+                                        <h6>Type</h6>
                                         <p>{projectData.type}</p>
                                     </div>
                                     <div className="single-brief total-cost">
