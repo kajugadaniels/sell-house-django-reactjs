@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { CircleX, Menu } from 'lucide-react';
+import { CircleX, Menu, MessageCircle, PhoneCall } from 'lucide-react';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -44,12 +44,14 @@ const Navbar = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col-xl-4 col-lg-4 col-6 d-flex">
-                                <div className="mt-30 mb-30">
-                                    <Link to="own-house" className="text-white bg-black white-btn">Own House</Link>
-                                </div>
-                                <div className="mt-30 mb-30">
-                                    <Link to="rent-apartment" className="text-white bg-black white-btn">Rent Apartment</Link>
+                            <div className="col-xl-4 col-lg-4 col-6 d-none d-lg-block">
+                                <div className='d-flex'>
+                                    <div className="mt-30 mb-30">
+                                        <Link to="own-house" className="text-white bg-black white-btn">Own House</Link>
+                                    </div>
+                                    <div className="mt-30 mb-30">
+                                        <Link to="rent-apartment" className="text-white bg-black white-btn">Rent Apartment</Link>
+                                    </div>
                                 </div>
                             </div>
                             <div className="mobile-nav-bar col-6 d-block d-lg-none">
@@ -70,11 +72,17 @@ const Navbar = () => {
                                                         </Link>
                                                     </li>
                                                 ))}
+                                                <div className="mt-10 mb-10">
+                                                    <Link to="own-house" className="py-4 text-white bg-black white-btn" style={{ border: 'none' }}>Own House</Link>
+                                                </div>
+                                                <div className="mt-10 mb-10">
+                                                    <Link to="rent-apartment" className="py-4 text-white bg-black white-btn" style={{ border: 'none' }}>Rent Apartment</Link>
+                                                </div>
                                             </ul>
                                         </nav>
                                         <div className="action-bar">
-                                            <a href="mailto:info@welinkhome.com"><i className="las la-envelope"></i>info@welinkhome.com</a>
-                                            <a href="tel:123-456-7890"><i className="fal fa-phone"></i>123-456-7890</a>
+                                            <Link to="mailto:info@welinkhome.com"><MessageCircle className="las la-envelope" />info@welinkhome.com</Link>
+                                            <Link to="tel:123-456-7890"><PhoneCall className="fal fa-phone" />123-456-7890</Link>
                                             <Link to="/contact" className="theme-btn" onClick={toggleMobileMenu}>Contact Us</Link>
                                         </div>
                                     </div>
