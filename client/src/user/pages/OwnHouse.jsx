@@ -148,7 +148,14 @@ const OwnHouse = () => {
                                                     >
                                                         <div className="single-project-item">
                                                             <div className="project-bg">
-                                                                <img src='https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg' alt={project.title} style={{ backgroundSize: 'contain' }} />
+                                                                <img 
+                                                                    src={project.image || 'https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg'} 
+                                                                    alt={project.title} 
+                                                                    onError={(e) => {
+                                                                        e.target.onerror = null; // prevent infinite fallback
+                                                                        e.target.src = 'https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg'; // fallback image
+                                                                    }} 
+                                                                />
                                                             </div>
                                                             <div className="project-info">
                                                                 <div onClick={() => handleView(project.id)}>
