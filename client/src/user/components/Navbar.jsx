@@ -16,9 +16,6 @@ const Navbar = () => {
         { path: '/', label: 'Home' },
         { path: '/about', label: 'About Us' },
         { path: '/services', label: 'Services' },
-        { path: '/projects', label: 'Projects' },
-        { path: '/own-house', label: 'Own a House' },
-        { path: '/rent-apartment', label: 'Rent an Apartment' },
         { path: '/contact', label: 'Contact' },
     ];
 
@@ -33,7 +30,7 @@ const Navbar = () => {
                                     <Link to="/" className="logo">WeLink Home.</Link>
                                 </div>
                             </div>
-                            <div className="col-xl-9 col-lg-9 d-none d-lg-block text-lg-end">
+                            <div className="col-xl-5 col-lg-5 d-none d-lg-block text-lg-end">
                                 <div className="main-menu">
                                     <ul>
                                         {menuItems.map((item) => (
@@ -44,6 +41,14 @@ const Navbar = () => {
                                             </li>
                                         ))}
                                     </ul>
+                                </div>
+                            </div>
+                            <div className="col-xl-4 col-lg-4 col-6 d-flex">
+                                <div className="mt-30 mb-30">
+                                    <Link to="own-house" className="text-white bg-black white-btn">Own House</Link>
+                                </div>
+                                <div className="mt-30 mb-30">
+                                    <Link to="rent-apartment" className="text-white bg-black white-btn">Rent Apartment</Link>
                                 </div>
                             </div>
                             <div className="mobile-nav-bar col-6 d-block d-lg-none">
