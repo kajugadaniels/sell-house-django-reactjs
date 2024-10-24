@@ -1,81 +1,80 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { motion, AnimatePresence } from 'framer-motion'
-import { getProjects } from '../api'
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { motion, AnimatePresence } from 'framer-motion';
+import { getProjects } from '../api/projects';
 
 const OwnHouse = () => {
-    const [projects, setProjects] = useState([])
-    const [filteredProjects, setFilteredProjects] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1)
-    const [projectsPerPage] = useState(12)
-    const [activeCategory, setActiveCategory] = useState('All')
-    const [showMoreProjects, setShowMoreProjects] = useState(false)
-    const navigate = useNavigate()
+    const [projects, setProjects] = useState([]);
+    const [filteredProjects, setFilteredProjects] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [projectsPerPage] = useState(12);
+    const [activeCategory, setActiveCategory] = useState('All');
+    const [showMoreProjects, setShowMoreProjects] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const loadProjects = async () => {
-            setLoading(true)
+            setLoading(true);
             try {
-                const data = await getProjects()
-                // Filter projects to include only those with type "Own House"
-                const ownHouseProjects = data.filter(project => project.type === 'Own House')
-                setProjects(ownHouseProjects)
-                setFilteredProjects(ownHouseProjects) // Initially show all "Own House" projects
+                const data = await getProjects();
+                // Filter projects by type 'Own House'
+                const ownHouseProjects = data.filter(project => project.type === 'Own House');
+                setProjects(ownHouseProjects);
+                setFilteredProjects(ownHouseProjects);
             } catch (error) {
-                toast.error('Failed to load projects.')
+                console.error('Error loading projects:', error);
+                toast.error('Failed to load projects.');
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
-        loadProjects()
-    }, [])
+        };
+        loadProjects();
+    }, []);
 
     const handleView = (projectId) => {
-        navigate(`/project/${projectId}`)
-    }
+        navigate(`/project/${projectId}`);
+    };
 
     const handleFilter = (category) => {
-        setActiveCategory(category)
+        setActiveCategory(category);
         if (category === 'All') {
-            setFilteredProjects(projects)
+            setFilteredProjects(projects);
         } else {
-            // Filter by both "Own House" type and the selected category
-            const filtered = projects.filter(project => project.category === category)
-            setFilteredProjects(filtered)
+            const filtered = projects.filter(project => project.category === category);
+            setFilteredProjects(filtered);
         }
-        setCurrentPage(1)
-        setShowMoreProjects(false)
-    }
+        setCurrentPage(1);
+        setShowMoreProjects(false);
+    };
 
-    const indexOfLastProject = currentPage * projectsPerPage
-    const indexOfFirstProject = indexOfLastProject - projectsPerPage
+    const indexOfLastProject = currentPage * projectsPerPage;
+    const indexOfFirstProject = indexOfLastProject - projectsPerPage;
     const currentProjects = filteredProjects.slice(
         indexOfFirstProject,
         showMoreProjects ? filteredProjects.length : indexOfLastProject
-    )
+    );
 
-    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage)
-
-    const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber)
-        setShowMoreProjects(false)
-    }
+    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
 
     const handleLoadMore = () => {
-        setShowMoreProjects(true)
-    }
+        setShowMoreProjects(true);
+    };
 
     return (
         <>
-            <div className="breadcrumb-area white-bg">
+            <div className="py-3 breadcrumb-area bg-light">
                 <div className="container">
                     <div className="row">
                         <nav aria-label="breadcrumb">
-                            <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                                <li className="breadcrumb-item"><Link to="/project">Projects</Link></li>
+                            <ol className="mb-0 breadcrumb">
+                                <li className="breadcrumb-item">
+                                    <Link to="/" className="text-decoration-none">Home</Link>
+                                </li>
+                                <li className="breadcrumb-item">
+                                    <Link to="/project" className="text-decoration-none">Projects</Link>
+                                </li>
                                 <li className="breadcrumb-item active" aria-current="page">Own a House</li>
                             </ol>
                         </nav>
@@ -83,105 +82,168 @@ const OwnHouse = () => {
                 </div>
             </div>
 
-            <div className="project-section section-padding">
+            <div className="py-5 project-section">
                 <div className="container">
-                    <div className="row border-bottom">
-                        <div className="col-xl-5 col-lg-5 col-md-7">
-                            <div className="section-title text-low">
-                                <div>
-                                    <h2 className='text-black fw-bold'>Own a House</h2>
-                                </div>
+                    <div className="pb-3 mb-4 row border-bottom">
+                        <div className="col-lg-5 col-md-7">
+                            <div className="section-title">
+                                <h2 className="text-black fw-bold">Own a House</h2>
                             </div>
                         </div>
-                        <div className="col-xl-7 col-lg-7 col-md-5 text-start">
-                            <div className="p-animation">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                </p>
-                            </div>
+                        <div className="col-lg-7 col-md-5">
+                            <p className="text-muted">
+                                Browse through our collection of available houses and find your dream home.
+                            </p>
                         </div>
                     </div>
 
                     {/* Filter Menu */}
-                    <div className="row text-lg-end mt-30">
-                        <ul id="menu-filter" className="mb-0 project-menu">
-                            <AnimatePresence>
-                                {['All', 'Residential', 'Commercial', 'Selling'].map((category, index) => (
-                                    <motion.li
-                                        key={index}
-                                        className="list-inline-item"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: 20 }}
-                                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                                    >
-                                        <a
-                                            className={activeCategory === category ? 'active' : ''}
-                                            onClick={() => handleFilter(category)}
+                    <div className="mb-4 row">
+                        <div className="col-12">
+                            <ul className="nav justify-content-end project-menu">
+                                <AnimatePresence>
+                                    {['All', 'Residential', 'Commercial', 'Selling'].map((category, index) => (
+                                        <motion.li
+                                            key={index}
+                                            className="nav-item"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 20 }}
+                                            transition={{ duration: 0.3, delay: index * 0.1 }}
                                         >
-                                            {category}
-                                        </a>
-                                    </motion.li>
-                                ))}
-                            </AnimatePresence>
-                        </ul>
-                    </div>
-
-                    {/* Projects List */}
-                    <div id="project-masonry" data-scroll-index="2">
-                        <div className="container">
-                            <div id="project-grid" className="project-grid project-section pt-60 pb-90">
-                                <div className="container-fluid">
-                                    {loading ? (
-                                        <div className="py-5 text-center">Loading projects...</div>
-                                    ) : (
-                                        <div className="row">
-                                            <AnimatePresence>
-                                                {currentProjects.map((project, index) => (
-                                                    <motion.div
-                                                        key={project.id}
-                                                        className="col-xl-4 col-lg-4 col-md-6 residence"
-                                                        initial={{ opacity: 0, y: 20 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        exit={{ opacity: 0, y: 20 }}
-                                                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                                                    >
-                                                        <div className="single-project-item">
-                                                            <div className="project-bg">
-                                                                <img src='https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg' alt={project.title} style={{ backgroundSize: 'contain' }} />
-                                                            </div>
-                                                            <div className="project-info">
-                                                                <div onClick={() => handleView(project.id)}>
-                                                                    <h5>{project.title}</h5>
-                                                                    <p>{project.category}</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </motion.div>
-                                                ))}
-                                            </AnimatePresence>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                                            <button
+                                                className={`nav-link border-0 bg-transparent px-3 ${activeCategory === category ? 'text-primary fw-bold' : 'text-muted'}`}
+                                                onClick={() => handleFilter(category)}
+                                            >
+                                                {category}
+                                            </button>
+                                        </motion.li>
+                                    ))}
+                                </AnimatePresence>
+                            </ul>
                         </div>
                     </div>
 
+                    {/* Projects Grid */}
+                    <div className="project-grid">
+                        {loading ? (
+                            <div className="py-5 text-center">
+                                <div className="spinner-border text-primary" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="row g-4">
+                                <AnimatePresence>
+                                    {currentProjects.map((project, index) => (
+                                        <motion.div
+                                            key={project.id}
+                                            className="col-lg-4 col-md-6"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 20 }}
+                                            transition={{ duration: 0.3, delay: index * 0.1 }}
+                                        >
+                                            <div className="border-0 shadow-sm card project-card h-100">
+                                                <div className="position-relative">
+                                                    {project.image ? (
+                                                        <img
+                                                            src={project.image}
+                                                            alt={project.title}
+                                                            className="card-img-top"
+                                                            style={{
+                                                                height: '250px',
+                                                                objectFit: 'cover',
+                                                            }}
+                                                            onError={(e) => {
+                                                                e.target.onerror = null;
+                                                                e.target.src = '/assets/images/placeholder-house.jpg';
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <div 
+                                                            className="bg-light d-flex align-items-center justify-content-center"
+                                                            style={{ height: '250px' }}
+                                                        >
+                                                            <span className="text-muted">No image available</span>
+                                                        </div>
+                                                    )}
+                                                    <div className="project-overlay">
+                                                        <button 
+                                                            className="btn btn-primary"
+                                                            onClick={() => handleView(project.id)}
+                                                        >
+                                                            View Details
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className="card-body">
+                                                    <h5 className="mb-1 card-title">{project.title}</h5>
+                                                    <p className="mb-0 card-text text-muted small">{project.category}</p>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </AnimatePresence>
+                            </div>
+                        )}
+                    </div>
+
                     {/* Load More Button */}
-                    {currentPage < totalPages && (
+                    {!showMoreProjects && currentPage < totalPages && (
                         <div className="mt-5 text-center">
                             <button
-                                className="btn btn-primary"
+                                className="px-4 py-2 btn btn-primary"
                                 onClick={handleLoadMore}
                             >
-                                Load More
+                                Load More Projects
                             </button>
                         </div>
                     )}
                 </div>
             </div>
-        </>
-    )
-}
 
-export default OwnHouse
+            {/* Add custom CSS */}
+            <style>
+                {`
+                    .project-card {
+                        transition: transform 0.3s ease;
+                    }
+                    
+                    .project-card:hover {
+                        transform: translateY(-5px);
+                    }
+                    
+                    .project-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: rgba(0, 0, 0, 0.5);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    }
+                    
+                    .project-card:hover .project-overlay {
+                        opacity: 1;
+                    }
+                    
+                    .nav-link {
+                        cursor: pointer;
+                        transition: color 0.3s ease;
+                    }
+                    
+                    .nav-link:hover {
+                        color: var(--bs-primary) !important;
+                    }
+                `}
+            </style>
+        </>
+    );
+};
+
+export default OwnHouse;
