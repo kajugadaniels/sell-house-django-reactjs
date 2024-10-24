@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.cdnfonts.com/css/lufga');
 
 @import './bootstrap.min.css';
 @import './line-awesome.min.css';
@@ -25,7 +25,7 @@ body {
 }
 
 body {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Lufga", sans-serif;
   font-size: 15px;
   line-height: 25px;
   font-weight: 400;
@@ -43,7 +43,7 @@ h5,
 h6 {
   position: relative;
   color: #000;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Lufga", sans-serif;
   font-weight: 400;
   margin: 0;
   letter-spacing: -1px;
@@ -63,7 +63,7 @@ a:hover {
 }
 
 p {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Lufga", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
@@ -1974,7 +1974,7 @@ input[type=search]::-webkit-search-results-decoration {
 }
 
 .search-popup .upper-text .text {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Lufga", sans-serif;
   font-size: 18px;
   letter-spacing: 1px;
 }
@@ -2260,7 +2260,7 @@ input[type=search]::-webkit-search-results-decoration {
   display: flex;
   align-items: center;
   text-transform: uppercase;
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Lufga", sans-serif;
   font-size: 26px;
   font-weight: 500;
   letter-spacing: 2px;
