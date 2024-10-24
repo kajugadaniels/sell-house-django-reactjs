@@ -4,9 +4,6 @@ import { toast } from 'react-toastify'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getProjects } from '../api'
 
-// Base URL for media files
-const MEDIA_BASE_URL = 'http://127.0.0.1:8000'
-
 const Projects = () => {
     const [projects, setProjects] = useState([])
     const [filteredProjects, setFilteredProjects] = useState([])
@@ -17,27 +14,14 @@ const Projects = () => {
     const [showMoreProjects, setShowMoreProjects] = useState(false)
     const navigate = useNavigate()
 
-    // Helper function to get full image URL
-    const getImageUrl = (imageUrl) => {
-        if (!imageUrl) return 'https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg' // Fallback image
-        if (imageUrl.startsWith('http')) return imageUrl
-        return `${MEDIA_BASE_URL}${imageUrl}`
-    }
-
     useEffect(() => {
         const loadProjects = async () => {
             setLoading(true)
             try {
                 const data = await getProjects()
-                // Transform the projects data to include full image URLs
-                const projectsWithImages = data.map(project => ({
-                    ...project,
-                    image: project.image ? getImageUrl(project.image) : null
-                }))
-                setProjects(projectsWithImages)
-                setFilteredProjects(projectsWithImages)
+                setProjects(data)
+                setFilteredProjects(data)
             } catch (error) {
-                console.error('Error loading projects:', error)
                 toast.error('Failed to load projects.')
             } finally {
                 setLoading(false)
@@ -87,7 +71,7 @@ const Projects = () => {
                     <div className="row">
                         <nav aria-label="breadcrumb">
                             <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+                                <li className="breadcrumb-item"><Link href="/">Home</Link></li>
                                 <li className="breadcrumb-item"><a href="#">Projects</a></li>
                             </ol>
                         </nav>
@@ -163,11 +147,10 @@ const Projects = () => {
                                                                 <img 
                                                                     src={project.image || 'https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg'} 
                                                                     alt={project.title} 
-                                                                    style={{ backgroundSize: 'contain' }} 
                                                                     onError={(e) => {
-                                                                        e.target.onerror = null
-                                                                        e.target.src = 'https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg'
-                                                                    }}
+                                                                        e.target.onerror = null; // prevent infinite fallback
+                                                                        e.target.src = 'https://capricorn-theme.com/html/architon/assets/img/blog/blog-5.jpg'; // fallback image
+                                                                    }} 
                                                                 />
                                                             </div>
                                                             <div className="project-info">
