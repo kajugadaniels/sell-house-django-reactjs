@@ -1,106 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Play } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React from 'react'
 
 const Hero = () => {
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [isTransitioning, setIsTransitioning] = useState(false);
-
-    const slides = [
-        {
-            title: "Thoughful Architectural Solutions",
-            description: "Vestibulum rhoncus nisl ac gravida porta. Mauris eu sapien lacus. Etiam molestie justo neque, in convallis massa tempus in.",
-            image: "https://capricorn-theme.com/html/architon/assets/img/slider/slide-3.jpg"
-        },
-        {
-            title: "Transform Space into Reality Design",
-            description: "Vestibulum rhoncus nisl ac gravida porta. Mauris eu sapien lacus. Etiam molestie justo neque, in convallis massa tempus in.",
-            image: "https://capricorn-theme.com/html/architon/assets/img/slider/slide-1.jpg"
-        },
-        {
-            title: "Creating Space for Perfect Future",
-            description: "Vestibulum rhoncus nisl ac gravida porta. Mauris eu sapien lacus. Etiam molestie justo neque, in convallis massa tempus in.",
-            image: "https://capricorn-theme.com/html/architon/assets/img/slider/slider-1.jpg"
-        }
-    ];
-
-    const nextSlide = () => {
-        setIsTransitioning(true);
-        setCurrentSlide((prevSlide) => 
-            prevSlide === slides.length - 1 ? 0 : prevSlide + 1
-        );
-        setTimeout(() => setIsTransitioning(false), 500);
-    };
-
-    const goToSlide = (index) => {
-        setIsTransitioning(true);
-        setCurrentSlide(index);
-        setTimeout(() => setIsTransitioning(false), 500);
-    };
-
-    useEffect(() => {
-        const timer = setInterval(nextSlide, 5000);
-        return () => clearInterval(timer);
-    }, []);
-
     return (
-        <div id="home-2" className="relative overflow-hidden homepage-slides">
-            <div 
-                className="relative w-full h-full slides-container"
-                style={{
-                    transform: `translateX(-${currentSlide * 100}%)`,
-                    transition: 'transform 0.5s ease-in-out',
-                    display: 'flex',
-                    // width: `${slides.length * 100}%`
-                }}
-            >
-                {slides.map((slide, index) => (
-                    <div
-                        key={index}
-                        className="single-slide-item d-flex align-items-center"
-                        style={{ 
-                            backgroundImage: `url('${slide.image}')`,
-                            width: '100%',
-                            flex: '0 0 auto'
-                        }}
-                    >
-                        <div className="hero-area-content">
-                            <div className="container">
-                                <div className="row align-items-center">
-                                    <div className="col-xl-7 col-lg-8 col-md-10 col-sm-8 wow fadeInUp animated" data-wow-delay=".2s">
-                                        <div className="section-title">
-                                            <h1 className="text-white">{slide.title}</h1>
-                                        </div>
-                                        <p className="text-white">{slide.description}</p>
-                                        <Link to="/about" className="mt-40 theme-btn">Learn More</Link>
-                                    </div>
-                                </div>
+        <div className="hero-area section-padding">
+            <div className="container">
+                <div className="row align-items-center">
+                    <div className="col-xl-7 col-lg-7 col-md-7 col-sm-9">
+                        <div className="section-title">
+                            <div className="heading-animation">
+                                <h1>
+                                    We’re focused on creating new innovative space.
+                                </h1>
                             </div>
+
                         </div>
                     </div>
-                ))}
-            </div>
+                    <div className="col-xl-5 col-lg-5 col-md-5 wow fadeInUp" data-wow-delay=".6s">
+                        <div className="p-animation">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
 
-            <div className="slider-nav" style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
-                {slides.map((_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => !isTransitioning && goToSlide(index)}
-                        style={{
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            border: 'none',
-                            margin: '0 5px',
-                            padding: 0,
-                            backgroundColor: index === currentSlide ? '#fff' : 'rgba(255,255,255,0.5)',
-                            cursor: 'pointer'
-                        }}
-                    />
-                ))}
+                    </div>
+                </div>
+            </div>
+            <div className="container">
+
+                <div className="hero-img-wrap mt-30 wow fadeInUp animated" data-wow-delay=".6s">
+                    <img src="https://capricorn-theme.com/html/architon/assets/img/slider/slide-3.jpg" alt="" />
+                </div>
+
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Hero;
+export default Hero
