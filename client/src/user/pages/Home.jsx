@@ -159,8 +159,10 @@ const Home = () => {
                 <div className="container">
                     <div className="row justify-content-center border-bottom">
                         <div className="col-xl-12">
-                            <div className="section-title text-up">
-                                <h2>Works <span>4</span></h2>
+                            <div className="section-title text-low">
+                                <h2 className='text-black fw-bold'>
+                                    Recent Projects
+                                </h2>
                             </div>
                         </div>
                     </div>
