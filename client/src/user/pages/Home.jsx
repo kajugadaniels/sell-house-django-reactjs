@@ -174,11 +174,14 @@ const Home = () => {
                                 <div className="tab-pane fade show active">
                                     <div className="pt-10 row">
                                         {projects.map((project, index) => (
-                                            <div className="col-xl-4 col-lg-4 col-md-4 col-12">
-                                                <div className="featured-work-wrapper" style={{ backgroundImage: "url('https://capricorn-theme.com/html/architon/assets/img/project/project-details/project-details.jpg')" }} onClick={() => handleView(project.id)}>
+                                            <div className="col-xl-4 col-lg-4 col-md-4 col-12" key={index}>
+                                                <div
+                                                    className="featured-work-wrapper"
+                                                    style={{ backgroundImage: `url(${project.image})` }} // Use dynamic project image
+                                                    onClick={() => handleView(project.id)}
+                                                >
                                                     <div className="featured-work-inner">
-                                                        <div className="fetured-work-bg">
-                                                        </div>
+                                                        <div className="fetured-work-bg"></div>
                                                         <div className="details-link" onClick={() => handleView(project.id)}>
                                                             <ArrowUpRight className="text-white" />
                                                         </div>
